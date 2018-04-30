@@ -3,5 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Sang Mercado <sang.mercado@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "jscodeshift": "^0.5.0",
+    "jscodeshift-ava-tester": "^1.1.1"
+  }
 }
