@@ -1,4 +1,4 @@
-const sortImportTransform = require('js-import-sort/transform');
+const sortImportTransform = require('codemod-imports-sort/dist');
 
 const changeImportTransform = (helper, importPrefix) => (
   fileInfo,
@@ -29,7 +29,7 @@ module.exports = (source, importPrefix) => (fileInfo, api, options) => {
   )(fileInfo, api, options);
 
   if (modified) {
-    return sortImportTransform(
+    return sortImportTransform.default(
       { ...fileInfo, source: changedSource },
       api,
       options

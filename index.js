@@ -17,7 +17,7 @@ module.exports = {
         importPrefix,
       }
     ).then(() => {
-      fs.renameSync(resolvedSourcePath, resolvedDirectoryPath);
+      fs.renameSync(resolvedSourcePath, `${resolvedDirectoryPath}.js`);
     });
   },
 };

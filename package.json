@@ -15,7 +15,7 @@
     "jscodeshift-ava-tester": "^1.1.1"
   },
   "dependencies": {
-    "js-import-sort": "git://github.com/sangm/js-import-sort.git#046c1ee",
+    "codemod-imports-sort": "git://github.com/sangm/codemod-imports-sort.git#dist",
     "jscodeshift": "^0.5.0",
     "commander": "^2.15.1",
     "walk-sync": "^0.3.2"
