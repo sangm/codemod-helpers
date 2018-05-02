@@ -13,6 +13,17 @@ const collect = (val, memo) => {
 
 program
   .version('0.0.1')
+  .command('fix-pdsc-imports')
+  .option('-p, --path [value]', 'foo', collect, [])
+  .description('fixes all pdsc mock imports and sorts imports')
+  .action((req, optional) => {
+    if (!req.path) {
+      console.log('-p --path option is required');
+      return;
+    }
+
+    runCodemod.fixPdscImports(req.path);
+  })
   .command('mv')
   .description(
     'Move file along with reference to all of its imports. We will also sort the imports.'

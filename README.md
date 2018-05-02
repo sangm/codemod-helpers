@@ -61,3 +61,18 @@ The order of imports will be sorted.
 
 And the original file `core/lib/scroll-to-bottom.js` being moved to
 `lib/test-helpers/scroll-to-bottom.js`
+
+## fix-pdsc-imports
+
+```
+  Usage: fix-pdsc-imports [options] [command]
+
+  fixes all pdsc mock imports and sorts imports
+
+  Options:
+
+    -p, --path [value]  foo (default: )
+    -h, --help          output usage information
+```
+
+Fixes imports with `../pdsc-mock` to absolute path: `ember-pdsc-mocker/pdsc-mock`

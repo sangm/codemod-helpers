@@ -20,4 +20,10 @@ module.exports = {
       fs.renameSync(resolvedSourcePath, `${resolvedDirectoryPath}.js`);
     });
   },
+
+  fixPdscImports: path => {
+    Runner.run(resolve(`${__dirname}/src/fix-pdsc-mock-imports.js`), path, {
+      ignorePattern: 'node_modules|bower_components',
+    });
+  },
 };
