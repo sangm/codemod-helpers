@@ -1,6 +1,6 @@
 {
   "name": "codemod-helpers",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "index.js",
   "author": "Sang Mercado <sang.mercado@gmail.com>",
   "license": "MIT",
