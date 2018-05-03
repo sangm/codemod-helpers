@@ -3,6 +3,7 @@
 const runCodemod = require('./index');
 const program = require('commander');
 const walkSync = require('walk-sync');
+const pkg = require('./package.json');
 const { resolve } = require('path');
 
 const list = val => val.split(',');
@@ -12,18 +13,8 @@ const collect = (val, memo) => {
 };
 
 program
-  .version('0.0.1')
-  .command('fix-pdsc-imports')
-  .option('-p, --path [value]', 'foo', collect, [])
-  .description('fixes all pdsc mock imports and sorts imports')
-  .action((req, optional) => {
-    if (!req.path) {
-      console.log('-p --path option is required');
-      return;
-    }
-
-    runCodemod.fixPdscImports(req.path);
-  })
+  .version(pkg.version)
+  .command('fix-pdsc-imports', 'fixes all pdsc mock imports and sorts imports')
   .command('mv')
   .description(
     'Move file along with reference to all of its imports. We will also sort the imports.'
