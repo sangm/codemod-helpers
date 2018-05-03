@@ -64,3 +64,16 @@ Options:
 
 Fixes imports with `../pdsc-mock` to absolute path:
 `ember-pdsc-mocker/pdsc-mock`
+
+## include-tests-in-host | it
+
+Goes through a given directory and inserts `use strict` + `includeTestsInHost`
+
+```
+Usage: codemod-helpers-include-tests-in-host source | codemod-helpers-include-tests-in-host source1 source2 ... sourceN
+
+Options:
+
+  -d --dry    Dry run (no changes are made to files
+  -h, --help  output usage information
+```

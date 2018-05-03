@@ -11,4 +11,6 @@ program
     'mv',
     'Move file along with reference to all of its imports. We will also sort the imports.'
   )
+  .command('include-tests-in-host', 'Add `includeTestsInHost` flag to all `index.js` files')
+  .alias('it')
   .parse(process.argv);

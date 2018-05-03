@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Runner = require('jscodeshift/src/Runner');
+const walkSync = require('walk-sync');
 const { resolve, parse, join } = require('path');
 
 const getGlobalOptions = options => ({
@@ -59,5 +60,23 @@ module.exports = {
       }
     );
   },
+
+  includeTestsInHost: (paths, options) => {
+    const cwd = process.cwd();
+    const filesArray = paths.map(path =>
+      walkSync(cwd, {
+        globs: [`${path}/**/index.js`],
+        ignore: ['**/node_modules', '**/bower_components'],
+        directories: false,
+      })
+    );
+
+    const filesFlattened = [].concat(...filesArray);
+
+    return jscodeshfitRun(
+      resolve(`${__dirname}/src/insert-include-tests-in-host/transform.js`),
+      filesFlattened,
+      options
+    );
   },
 };
