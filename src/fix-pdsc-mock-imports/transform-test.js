@@ -1,7 +1,7 @@
 import test from 'ava';
 import jscodeshfit from 'jscodeshift';
 import testCodemod from 'jscodeshift-ava-tester';
-import fixPdscMocks from './fix-pdsc-mock-imports';
+import fixPdscMocks from './transform';
 
 const { testUnchanged, testChanged } = testCodemod(
   jscodeshfit,

@@ -13,7 +13,10 @@ const changeImportTransform = (helper, importPrefix) => (
     .find(j.ImportDeclaration)
     .forEach(path => {
       if (path.node.source.value.endsWith(`/${helper}`)) {
-        path.node.source.value = `${importPrefix}/${helper}`;
+        const correctImportValue = importPrefix.endsWith('/')
+          ? `${importPrefix}${helper}`
+          : `${importPrefix}/${helper}`;
+        path.node.source.value = correctImportValue;
         modified = true;
       }
     })

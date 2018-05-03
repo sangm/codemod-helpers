@@ -1,7 +1,7 @@
 import test from 'ava';
 import jscodeshfit from 'jscodeshift';
 import testCodemod from 'jscodeshift-ava-tester';
-import fixImports from './fix-imports';
+import fixImports from './transform-generator';
 
 const { testUnchanged, testChanged } = testCodemod(
   jscodeshfit,
