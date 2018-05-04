@@ -44,7 +44,7 @@ module.exports = {
     };
 
     return jscodeshfitRun(
-      'src/fix-imports/transform.js',
+      'transforms/fix-imports/transform.js',
       testFiles,
       { source: name, importPrefix, dry },
       callback
@@ -52,10 +52,14 @@ module.exports = {
   },
 
   fixPdscImports: (path, options) => {
-    return jscodeshfitRun('src/fix-pdsc-mock-imports/transform.js', path, {
-      ignorePattern: 'node_modules',
-      ...options,
-    });
+    return jscodeshfitRun(
+      'transforms/fix-pdsc-mock-imports/transform.js',
+      path,
+      {
+        ignorePattern: 'node_modules',
+        ...options,
+      }
+    );
   },
 
   includeTestsInHost: (paths, options) => {
@@ -71,7 +75,7 @@ module.exports = {
     const filesFlattened = [].concat(...filesArray);
 
     return jscodeshfitRun(
-      'src/insert-include-tests-in-host/transform.js',
+      'transforms/insert-include-tests-in-host/transform.js',
       filesFlattened,
       options
     );
