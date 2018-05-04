@@ -8,7 +8,7 @@
     "codemod-helpers": "./commander.js"
   },
   "scripts": {
-    "test": "ava src/**/*-test.js"
+    "test": "ava"
   },
   "devDependencies": {
     "ava": "^0.25.0",
