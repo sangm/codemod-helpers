@@ -62,16 +62,15 @@ module.exports = (file, api) => {
     return root.toSource();
   }
 
-  if (!hasStrictMode(programBody, j)) {
-    const useStrictNode = j.expressionStatement(j.literal('use strict'));
-    programBody.unshift(useStrictNode);
-  }
-
   const includeTestsInHostObjProp = j.objectProperty(
     j.identifier('includeTestsInHost'),
     j.booleanLiteral(true)
   );
 
   properties.push(includeTestsInHostObjProp);
-  return root.toSource({ quote: 'single' });
+
+  const sourceCode = root.toSource({ quote: 'single' });
+  return hasStrictMode(programBody, j)
+    ? sourceCode
+    : `'use strict';\n\n${sourceCode}`;
 };

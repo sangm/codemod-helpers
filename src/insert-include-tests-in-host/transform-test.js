@@ -15,8 +15,9 @@ module.exports = {
   name: 'foo',
 };
 `,
-  `
-'use strict';
+  `'use strict';
+
+
 module.exports = {
   name: 'foo',
   includeTestsInHost: true
@@ -31,8 +32,9 @@ module.exports = Engine.extend({
   isDevelopingAddon: () => true,
 });
 `,
-  `
-'use strict';
+  `'use strict';
+
+
 module.exports = Engine.extend({
   name: 'jobs-search',
   isDevelopingAddon: () => true,
@@ -76,8 +78,9 @@ module.exports = emberRollup(['@foo'], {
   },
 });
 `,
-  `
-'use strict';
+  `'use strict';
+
+
 // preserves comments
 module.exports = emberRollup(['@foo'], {
   name: 'data-layer',

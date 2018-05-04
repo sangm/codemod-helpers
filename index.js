@@ -10,7 +10,7 @@ const getGlobalOptions = options => ({
   ...options,
 });
 
-const jscodeshfitRun = (transformFile, path, options, callback) => {
+const jscodeshfitRun = (relativeTransformFile, path, options, callback) => {
   console.log(`Applying codemod`);
 
   const afterRun =
@@ -18,6 +18,7 @@ const jscodeshfitRun = (transformFile, path, options, callback) => {
       ? callback
       : () => console.log('Finished applying the codemod');
 
+  const transformFile = resolve(`${__dirname}/${relativeTransformFile}`);
   return Runner.run(transformFile, path, getGlobalOptions(options)).then(
     afterRun
   );
@@ -43,7 +44,7 @@ module.exports = {
     };
 
     return jscodeshfitRun(
-      resolve(`${__dirname}/src/fix-imports/transform.js`),
+      'src/fix-imports/transform.js',
       testFiles,
       { source: name, importPrefix, dry },
       callback
@@ -51,14 +52,10 @@ module.exports = {
   },
 
   fixPdscImports: (path, options) => {
-    return jscodeshfitRun(
-      resolve(`${__dirname}/src/fix-pdsc-mock-imports/transform.js`),
-      path,
-      {
-        ignorePattern: 'node_modules',
-        ...options,
-      }
-    );
+    return jscodeshfitRun('src/fix-pdsc-mock-imports/transform.js', path, {
+      ignorePattern: 'node_modules',
+      ...options,
+    });
   },
 
   includeTestsInHost: (paths, options) => {
@@ -74,7 +71,7 @@ module.exports = {
     const filesFlattened = [].concat(...filesArray);
 
     return jscodeshfitRun(
-      resolve(`${__dirname}/src/insert-include-tests-in-host/transform.js`),
+      'src/insert-include-tests-in-host/transform.js',
       filesFlattened,
       options
     );
