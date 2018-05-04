@@ -20,7 +20,7 @@ Options:
 ```
 
 ```
-codemod-helpers mv core/lib/scroll-to-bottom.js lib/test-helpers -i "test-helpers"
+codemod-helpers mv core/lib/scroll-to-bottom.js lib/test-helpers -i "IMPORT_PREFIX"
 ```
 
 Will result in `core/lib/scroll-to-bottom.js` moved to `lib/test-helpers` as
@@ -41,7 +41,7 @@ will result in
 ```
 // /Users/sangm/foo-project_trunk/tests/foo-test.js
 
-import 'lib/test-helpers/scroll-to-bottom';
+import 'IMPORT_PREFIX/scroll-to-bottom';
 import '../helpers/a';
 ...
 ```

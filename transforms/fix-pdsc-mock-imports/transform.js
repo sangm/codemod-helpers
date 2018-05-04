@@ -1,4 +1,5 @@
 const sortImportTransform = require('codemod-imports-sort/dist');
+const fixPdscNode = require('../utils/fix-pdsc-node');
 
 const fixPdscMockTransform = (fileInfo, api, options) => {
   const { source } = fileInfo;
@@ -8,14 +9,7 @@ const fixPdscMockTransform = (fileInfo, api, options) => {
   const changedSource = j(source)
     .find(j.ImportDeclaration)
     .forEach(path => {
-      const value = path.node.source.value;
-      if (value.includes('/pdsc-mock')) {
-        const importPaths = value.split('/');
-        const lastPart = importPaths[importPaths.length - 1];
-        const correctImport = `ember-pdsc-mocker/${lastPart}`;
-        path.node.source.value = correctImport;
-        modified = true;
-      }
+      modified = modified || fixPdscNode(path);
     })
     .toSource({ quote: 'single' });
 

@@ -36,3 +36,4 @@ testChanged(
 );
 
 testUnchanged(`import generateMsgPDSCMocks from './msg-pdsc-mocker';`);
+testUnchanged(`import foobar from '../../pdsc-mocks/comments';`);

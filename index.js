@@ -1,58 +1,59 @@
+const { promisify } = require('util');
 const fs = require('fs');
-const Runner = require('jscodeshift/src/Runner');
 const walkSync = require('walk-sync');
 const { resolve, parse, join } = require('path');
-
-const getGlobalOptions = options => ({
-  extensions: 'js',
-  silent: !options.dry,
-  verbose: options.dry ? 0 : false,
-  ...options,
-});
-
-const jscodeshfitRun = (relativeTransformFile, path, options, callback) => {
-  console.log(`Applying codemod`);
-
-  const afterRun =
-    callback && typeof callback === 'function'
-      ? callback
-      : () => console.log('Finished applying the codemod');
-
-  const transformFile = resolve(`${__dirname}/${relativeTransformFile}`);
-  return Runner.run(transformFile, path, getGlobalOptions(options)).then(
-    afterRun
-  );
-};
+const jscodeshiftRun = require('./src/utils/jscodeshift-run');
+const mv = require('./src/mv');
 
 module.exports = {
-  moveHelper: ({ source, directory, importPrefix, testFiles, dry }) => {
+  moveHelper: program => {
+    const [source, target] = program.args;
+    const { importPrefix, root: rootArg, testFilesPattern, dry } = program;
+    const root = rootArg || process.cwd();
+    if (!rootArg) {
+      console.log(
+        'This command HAS to be ran on the root directory of the project.'
+      );
+      console.log(
+        `Since '-r --root' option was not provided, we will assume the current working directory ${root}`
+      );
+    }
+
     const parsedSource = parse(source);
-    const { name } = parsedSource;
-    const resolvedSourcePath = resolve(source);
-    const resolvedDirectoryPath = join(directory, name);
+    const globs = [
+      'core/**/+(tests|addon-test-support)/**/*.js',
+      'extended/**/+(tests|addon-test-support)/**/*.js',
+      'lib/**/+(tests|addon-test-support)/**/*.js',
+      'engine-lib/**/+(tests|addon-test-support)/**/*.js',
+    ];
 
-    const callback = () => {
-      if (!dry) {
-        try {
-          fs.renameSync(resolvedSourcePath, `${resolvedDirectoryPath}.js`);
-        } catch (e) {
-          console.log(
-            `Failed to rename ${resolvedSourcePath} to ${resolvedDirectoryPath}.js`
-          );
-        }
-      }
-    };
+    const testFiles =
+      testFilesPattern.length === 0
+        ? walkSync(root, {
+            globs,
+            ignore: ['**/node_modules', '**/bower_components'],
+            directories: false,
+          })
+        : testFilesPattern;
 
-    return jscodeshfitRun(
+    return jscodeshiftRun(
       'transforms/fix-imports/transform.js',
       testFiles,
-      { source: name, importPrefix, dry },
-      callback
+      {
+        source,
+        target,
+        importPrefix,
+        dry,
+      },
+      () =>
+        mv(program, fs, process).then(() =>
+          console.log('Finished applying the codemod')
+        )
     );
   },
 
   fixPdscImports: (path, options) => {
-    return jscodeshfitRun(
+    return jscodeshiftRun(
       'transforms/fix-pdsc-mock-imports/transform.js',
       path,
       {
@@ -74,7 +75,7 @@ module.exports = {
 
     const filesFlattened = [].concat(...filesArray);
 
-    return jscodeshfitRun(
+    return jscodeshiftRun(
       'transforms/insert-include-tests-in-host/transform.js',
       filesFlattened,
       options
