@@ -7,9 +7,9 @@ const { testUnchanged, testChanged } = testCodemod(
   jscodeshift,
   test,
   fixImports({
-    source: 'core/lib/voyager-testing/tests/helpers/module-for-acceptance.js',
-    target: 'lib/voyager-test-helpers/module-for-acceptance.js',
-    importPrefix: 'voyager-test-helpers',
+    source: 'core/lib/cool-app-testing/tests/helpers/module-for-acceptance.js',
+    target: 'lib/cool-app-test-helpers/module-for-acceptance.js',
+    importPrefix: 'cool-app-test-helpers',
     filePath:
       'core/engines/messaging/tests/acceptance/topcard-modal/topcard-common-test.js',
   })
@@ -25,5 +25,5 @@ import {
 import {
   moduleForAcceptance,
   test,
-} from 'voyager-test-helpers/module-for-acceptance';`
+} from 'cool-app-test-helpers/module-for-acceptance';`
 );
