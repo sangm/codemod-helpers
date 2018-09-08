@@ -2,7 +2,7 @@ module.exports = {
   ERROR_MESSAGES: {
     args: 'Wrong number of arguments.',
     importPrefix: `Please provide importPrefix with either '-i' or '--import-prefix'.
-    This wil be used to prefix all the previous import references.
+    This will be used to prefix all the previous import references.
     Given the following:
 
     codemod-helpers mv core/helper/foo.js lib/test-helpers/ -i "test-helpers/test-support"

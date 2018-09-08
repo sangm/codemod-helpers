@@ -4,6 +4,7 @@ const walkSync = require('walk-sync');
 const { resolve, parse, join } = require('path');
 const jscodeshiftRun = require('./src/utils/jscodeshift-run');
 const mv = require('./src/mv');
+const inferPrefix = require('./src/utils/infer-prefix');
 
 module.exports = {
   moveHelper: program => {
@@ -42,7 +43,9 @@ module.exports = {
       {
         source,
         target,
-        importPrefix,
+        importPrefix:
+          importPrefix ||
+          inferPrefix(target, target.includes('voyager-test-helpers')),
         dry,
       },
       () =>

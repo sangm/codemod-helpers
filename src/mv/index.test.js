@@ -21,13 +21,6 @@ test('wrong number of args results in error message', async t => {
   t.deepEqual(error, new Error(ERROR_MESSAGES.args));
 });
 
-test('import prefix is required as an option', async t => {
-  const program = { args: ['foo.js', 'lib'] };
-  const error = await t.throws(mv(program, fs, process));
-
-  t.deepEqual(error, new Error(ERROR_MESSAGES.importPrefix));
-});
-
 test('if program.dry is true, ensure there are no side effects', async t => {
   const program = {
     args: ['foo.js', 'bar.js'],

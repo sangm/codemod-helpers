@@ -11,7 +11,7 @@ const collect = (val, memo) => {
 program
   .usage('source target [--import-prefix]')
   .option(
-    '-i, --import-prefix <required>',
+    '-i, --import-prefix',
     `string to append in front of the helper when replacing the import references`
   )
   .option(

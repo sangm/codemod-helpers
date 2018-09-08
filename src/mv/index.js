@@ -16,7 +16,6 @@ const moveFile = (fs, root, source, target) => {
 
 module.exports = (program, fs, process) => {
   const errors = checkForErrors(program);
-  const { importPrefix, root: rootArg, testFilesPattern, dry } = program;
 
   if (errors) {
     return Promise.reject(new Error(errors));
